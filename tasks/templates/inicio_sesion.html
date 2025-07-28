@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Solo usamos Bootstrap para layout y spacing -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="login-card">
+                <div class="p-4">
+                    <h1 class="text-center mb-4">Iniciar Sesión</h1>
+
+                    <p class="description text-center mb-4">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore voluptate cum perferendis
+                        fuga aperiam laborum dolorum? Veniam, praesentium quod atque.
+                    </p>
+
+                    {% if error %}
+                    <div class="error-message mb-3">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+
+                    <form action="" method="POST" class="login-form">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="custom-btn">
+                                Iniciar Sesión
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <p class="signup-link">¿No tienes cuenta? <a href="/signup">Regístrate aquí</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Tu CSS personalizado */
+    .login-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e9ecef;
+    }
+
+    .login-card h1 {
+        color: #2c3e50;
+        font-weight: 600;
+        font-size: 1.8rem;
+    }
+
+    .description {
+        color: #6c757d;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .error-message {
+        background: #f8d7da;
+        color: #721c24;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #f5c6cb;
+    }
+
+    .login-form input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+    }
+
+    .login-form input:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+    }
+
+    .login-form label {
+        color: #495057;
+        font-weight: 500;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    .custom-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 14px 20px;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .custom-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .signup-link {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+    .signup-link a {
+        color: #4a90e2;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .signup-link a:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .login-card {
+            margin: 0 15px;
+        }
+
+        .login-card h1 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}

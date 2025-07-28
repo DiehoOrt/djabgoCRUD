@@ -1,0 +1,356 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <!-- Header Section -->
+            <div class="page-header mb-5">
+                <h1 class="text-center">Tasks Pending</h1>
+                <div class="tasks-count text-center">
+                    <span class="badge">{{ tasks|length }} task{{ tasks|length|pluralize }}</span>
+                </div>
+            </div>
+
+            <!-- Tasks List -->
+            {% if tasks %}
+            <div class="tasks-container">
+                {% for task in tasks %}
+                <div class="task-card {% if task.important %}task-important{% endif %}">
+                    <a href="{% url 'tasks_detail' task.id %}" class="task-link">
+                        <div class="task-content">
+                            <div class="task-header">
+                                {% if task.important %}
+                                <div class="priority-badge">
+                                    <i class="priority-icon">!</i>
+                                    <span>High Priority</span>
+                                </div>
+                                {% endif %}
+                                <div class="task-user">
+                                    <i class="user-icon">👤</i>
+                                    <span>{{ task.user.username }}</span>
+                                </div>
+                            </div>
+
+                            <div class="task-body">
+                                {% if task.important %}
+                                <h2 class="task-title important-title">{{ task.title }}</h2>
+                                {% else %}
+                                <h3 class="task-title">{{ task.title }}</h3>
+                                {% endif %}
+
+                                <p class="task-description">{{ task.description }}</p>
+                            </div>
+
+                            <div class="task-footer">
+                                <span class="view-details">View Details →</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-state text-center">
+                <div class="empty-icon">📝</div>
+                <h3>No pending tasks</h3>
+                <p>Great job! You have no pending tasks at the moment.</p>
+                <a href="/tasks/create" class="create-task-btn">Create New Task</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Page Header */
+    .page-header h1 {
+        color: #2c3e50;
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        position: relative;
+    }
+
+    .page-header h1::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        margin: 20px auto;
+        border-radius: 2px;
+    }
+
+    .tasks-count .badge {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+    /* Tasks Container */
+    .tasks-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Task Cards */
+    .task-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .task-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+
+    .task-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .task-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    /* Important Tasks */
+    .task-important {
+        border-left: 5px solid #ff6b6b;
+        background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+    }
+
+    .task-important::before {
+        background: linear-gradient(90deg, #ff6b6b 0%, #ee5a52 100%);
+    }
+
+    .task-important:hover {
+        box-shadow: 0 15px 35px rgba(255, 107, 107, 0.25);
+    }
+
+    /* Task Link */
+    .task-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .task-link:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    /* Task Content */
+    .task-content {
+        padding: 25px;
+    }
+
+    .task-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .priority-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .priority-icon {
+        background: white;
+        color: #ff6b6b;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 0.7rem;
+    }
+
+    .task-user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #6c757d;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .user-icon {
+        font-size: 1rem;
+    }
+
+    /* Task Body */
+    .task-body {
+        margin-bottom: 20px;
+    }
+
+    .task-title {
+        color: #2c3e50;
+        margin-bottom: 12px;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+
+    .important-title {
+        color: #dc3545;
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+
+    .task-description {
+        color: #495057;
+        line-height: 1.6;
+        margin-bottom: 0;
+        font-size: 1rem;
+    }
+
+    /* Task Footer */
+    .task-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-top: 15px;
+        border-top: 1px solid #f8f9fa;
+    }
+
+    .view-details {
+        color: #667eea;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+    .task-card:hover .view-details {
+        color: #764ba2;
+    }
+
+    /* Empty State */
+    .empty-state {
+        padding: 60px 20px;
+        color: #6c757d;
+    }
+
+    .empty-icon {
+        font-size: 4rem;
+        margin-bottom: 20px;
+    }
+
+    .empty-state h3 {
+        color: #495057;
+        margin-bottom: 15px;
+    }
+
+    .create-task-btn {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 12px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .create-task-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        text-decoration: none;
+        color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .page-header h1 {
+            font-size: 2rem;
+        }
+
+        .task-content {
+            padding: 20px;
+        }
+
+        .task-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .important-title {
+            font-size: 1.4rem;
+        }
+
+        .priority-badge {
+            align-self: flex-start;
+        }
+    }
+
+    /* Animation */
+    .task-card {
+        animation: fadeInUp 0.6s ease-out forwards;
+        opacity: 0;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Stagger animation for multiple cards */
+    .task-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .task-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .task-card:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .task-card:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .task-card:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+</style>
+{% endblock %}

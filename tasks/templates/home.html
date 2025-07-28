@@ -1,0 +1,598 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="homepage-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8 col-md-10">
+                    <div class="hero-content">
+                        <div class="hero-icon">✨</div>
+                        <h1 class="hero-title">Welcome to TaskMaster</h1>
+                        <p class="hero-subtitle">
+                            The ultimate productivity tool to organize your life, manage your tasks,
+                            and achieve your goals with style and efficiency.
+                        </p>
+
+                        {% if not user.is_authenticated %}
+                        <div class="hero-actions mt-4">
+                            <a href="/signup" class="btn-primary-custom">
+                                <span class="btn-icon">🚀</span>
+                                Get Started
+                            </a>
+                            <a href="/inicio_sesion" class="btn-secondary-custom">
+                                <span class="btn-icon">🔑</span>
+                                Sign In
+                            </a>
+                        </div>
+                        {% else %}
+                        <div class="hero-actions mt-4">
+                            <a href="/tasks" class="btn-primary-custom">
+                                <span class="btn-icon">📋</span>
+                                View My Tasks
+                            </a>
+                            <a href="/tasks/create" class="btn-secondary-custom">
+                                <span class="btn-icon">➕</span>
+                                Create New Task
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section py-5">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-8">
+                    <h2 class="section-title">Why Choose TaskMaster?</h2>
+                    <p class="section-subtitle">
+                        Discover the features that make task management effortless and enjoyable
+                    </p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3 class="feature-title">Easy Task Creation</h3>
+                        <p class="feature-description">
+                            Create tasks quickly with our intuitive interface. Add descriptions,
+                            set priorities, and stay organized effortlessly.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3 class="feature-title">Priority Management</h3>
+                        <p class="feature-description">
+                            Mark important tasks and focus on what matters most.
+                            Never miss a deadline or forget a critical task again.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">✅</div>
+                        <h3 class="feature-title">Track Progress</h3>
+                        <p class="feature-description">
+                            See your completed tasks and celebrate your achievements.
+                            Monitor your productivity and stay motivated.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-content">
+                        <h2 class="about-title">About TaskMaster</h2>
+                        <p class="about-text">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quam dolorum
+                            explicabo facilis. Repellat, neque! Aspernatur nulla voluptate officiis facilis
+                            sed labore expedita ducimus nemo, sint accusantium reprehenderit odit voluptatibus.
+                        </p>
+                        <p class="about-text">
+                            A tenetur pariatur consequuntur rem eveniet vel quasi, autem molestiae, culpa
+                            necessitatibus inventore ullam corporis consequatur! Quaerat tempora iste voluptatum
+                            quidem sequi vitae, accusamus libero? Esse atque possimus inventore ipsa?
+                        </p>
+                        <div class="about-stats mt-4">
+                            <div class="stat-item">
+                                <div class="stat-number">10K+</div>
+                                <div class="stat-label">Tasks Completed</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">500+</div>
+                                <div class="stat-label">Happy Users</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">99%</div>
+                                <div class="stat-label">Satisfaction</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-visual">
+                        <div class="visual-card">
+                            <div class="visual-header">
+                                <span class="visual-title">📋 My Tasks</span>
+                                <span class="visual-count">12 tasks</span>
+                            </div>
+                            <div class="visual-tasks">
+                                <div class="visual-task completed">
+                                    <span class="task-check">✓</span>
+                                    <span class="task-text">Complete project proposal</span>
+                                </div>
+                                <div class="visual-task important">
+                                    <span class="task-priority">!</span>
+                                    <span class="task-text">Review client feedback</span>
+                                </div>
+                                <div class="visual-task">
+                                    <span class="task-check">○</span>
+                                    <span class="task-text">Schedule team meeting</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% if not user.is_authenticated %}
+    <!-- CTA Section -->
+    <section class="cta-section py-5">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="cta-content">
+                        <h2 class="cta-title">Ready to Get Organized?</h2>
+                        <p class="cta-text">
+                            Join thousands of users who have transformed their productivity with TaskMaster.
+                            Start your journey to better organization today!
+                        </p>
+                        <div class="cta-actions mt-4">
+                            <a href="/signup" class="btn-cta">
+                                <span class="btn-icon">🌟</span>
+                                Start Free Today
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+</div>
+
+<style>
+    /* Homepage Container */
+    .homepage-container {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    /* Hero Section */
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 100px 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,1000 1000,0"/></svg>');
+        background-size: cover;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-icon {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        display: inline-block;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 1.3rem;
+        line-height: 1.6;
+        opacity: 0.9;
+        margin-bottom: 0;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-actions {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* Custom Buttons */
+    .btn-primary-custom,
+    .btn-secondary-custom,
+    .btn-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-primary-custom {
+        background: white;
+        color: #667eea;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-primary-custom:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        color: #764ba2;
+        text-decoration: none;
+    }
+
+    .btn-secondary-custom {
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+    }
+
+    .btn-secondary-custom:hover {
+        background: white;
+        color: #667eea;
+        transform: translateY(-3px);
+        text-decoration: none;
+    }
+
+    .btn-cta {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-cta:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+        color: white;
+        text-decoration: none;
+    }
+
+    .btn-icon {
+        font-size: 1.2rem;
+    }
+
+    /* Features Section */
+    .features-section {
+        background: white;
+    }
+
+    .section-title {
+        color: #2c3e50;
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+
+    .section-subtitle {
+        color: #6c757d;
+        font-size: 1.2rem;
+        line-height: 1.6;
+    }
+
+    .feature-card {
+        background: white;
+        padding: 40px 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid #f8f9fa;
+        transition: all 0.3s ease;
+        height: 100%;
+        text-align: center;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+
+    .feature-title {
+        color: #2c3e50;
+        font-weight: 600;
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+
+    .feature-description {
+        color: #6c757d;
+        line-height: 1.6;
+        margin-bottom: 0;
+    }
+
+    /* About Section */
+    .about-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .about-title {
+        color: #2c3e50;
+        font-weight: 700;
+        font-size: 2.2rem;
+        margin-bottom: 25px;
+    }
+
+    .about-text {
+        color: #495057;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+
+    .about-stats {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        color: #667eea;
+        font-size: 2rem;
+        font-weight: 700;
+        display: block;
+    }
+
+    .stat-label {
+        color: #6c757d;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* About Visual */
+    .about-visual {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .visual-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        padding: 25px;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .visual-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #f8f9fa;
+    }
+
+    .visual-title {
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .visual-count {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+    .visual-tasks {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .visual-task {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+    .visual-task:hover {
+        background: #f8f9fa;
+    }
+
+    .visual-task.completed {
+        opacity: 0.7;
+    }
+
+    .visual-task.completed .task-text {
+        text-decoration: line-through;
+    }
+
+    .visual-task.important {
+        background: #fff5f5;
+        border-left: 3px solid #ff6b6b;
+    }
+
+    .task-check {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .task-priority {
+        color: #ff6b6b;
+        font-weight: bold;
+        background: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+    }
+
+    .task-text {
+        color: #495057;
+        font-size: 0.95rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+    }
+
+    .cta-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .cta-text {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+        }
+
+        .hero-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .btn-primary-custom,
+        .btn-secondary-custom,
+        .btn-cta {
+            width: 100%;
+            max-width: 300px;
+            justify-content: center;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .feature-card {
+            padding: 30px 20px;
+        }
+
+        .about-stats {
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+        }
+    }
+
+    /* Animations */
+    .feature-card,
+    .visual-card {
+        animation: fadeInUp 0.6s ease-out forwards;
+        opacity: 0;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .feature-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .feature-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .feature-card:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+</style>
+{% endblock %}
